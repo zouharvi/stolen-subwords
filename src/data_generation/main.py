@@ -27,6 +27,7 @@ model = get_generator(args.generator, args)
 
 fout = open(args.output, "w")
 
+# make sure that the system can batch the calls so that at no point is the whole dataset in memory
 for i in tqdm.tqdm(range(args.n*1000), total=args.n*1000):
     sent = next(model)
     fout.write(sent + "\n")
