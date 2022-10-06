@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 Carrot example used in the paper.
 """
