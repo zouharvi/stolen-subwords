@@ -32,9 +32,10 @@ class NGramModel():
     def get_ngrams(self, sent):
         return list(zip(*[sent[i:] for i in range(self.n)]))
 
-    def __init__(self, seed, n, sequences):
+    def __init__(self, seed, n, sequences, post_treatment=None):
         self.n = n
         self.random = random.Random(seed)
+        self.post_treatment = post_treatment
 
         if type(sequences[0][0]) is str and len(sequences[0][0]) == 1:
             self.start_token = "|"
@@ -77,6 +78,8 @@ class NGramModel():
 
             # remove start character
             sent = "".join(sent.split(self.start_token))
+            if self.post_treatment is not None:
+                sent = self.post_treatment(sent)
             return sent
 
 
@@ -143,12 +146,15 @@ class SubwordNgram(NGramModel):
         dataset = [
             [
                 w + " "
-                for w in "".join(model.bpe.encode(sent).split("@@")).split()
+                for w in model.bpe.encode(sent).split()
             ]
             for sent in dataset
         ]
 
-        super().__init__(seed, n, dataset)
+        def post_treatment(sent):
+            return model.bpe.decode(sent)
+
+        super().__init__(seed, n, dataset, post_treatment=post_treatment)
 
 
 def get_generator(name, args):

@@ -1,7 +1,7 @@
 #!/usr/bin/bash
-
 # Run me from the top-level directory
-DATA_SIZE_K=10
+
+DATA_SIZE_K=1000
 mkdir -p data
 
 # generate 1mil sentences for chars
