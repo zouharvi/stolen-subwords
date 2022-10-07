@@ -13,6 +13,14 @@ args.add_argument(
     "-s", "--seed", default=0, type=int,
 )
 args.add_argument(
+    "--ngram", default=None, type=int,
+    help="For ngram language models, which n to use"
+)
+args.add_argument(
+    "--bpe-model", default=None,
+    help="For subword ngram language models, name of the translation model from which to copy the vocab"
+)
+args.add_argument(
     "-g", "--generator", default="char_zerogram_10",
     help="Which generator to use"
 )
