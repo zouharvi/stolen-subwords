@@ -73,7 +73,8 @@ class NGramModel():
                     # unigram back-off distribution
                     ngram_start = None
                 ngram_cont = self.random.choices(
-                    self.freqs[ngram_start][0], k=1, weights=self.freqs[ngram_start][1])[0]
+                    self.freqs[ngram_start][0], k=1, weights=self.freqs[ngram_start][1]
+                )[0]
                 sent += ngram_cont
 
             # remove start character
