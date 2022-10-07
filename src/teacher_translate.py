@@ -22,6 +22,7 @@ fout = open(args.output, "w")
 
 def model_wrapper(model):
     import torch
+    import fairseq
     if model in {'transformer.wmt19.en-de', 'transformer.wmt19.de-en'}:
         return torch.hub.load(
             'pytorch/fairseq', model,
