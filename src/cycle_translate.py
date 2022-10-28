@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import random
 import torch
 
 args = argparse.ArgumentParser()
@@ -36,16 +37,33 @@ model_b.to("cuda")
 
 def cycle_translate(sentA):
     print()
-    for i in range(1, 10):
+    saw_a = set()
+    for i in range(1, 4):
         print(f"{i}a ###", sentA)
         sentB = model_a.translate(sentA)
         print(f"{i}b ###", sentB)
         sentA = model_b.translate(sentB)
+        if sentA in saw_a:
+            break
+        saw_a.add(sentA)
 
+
+with open("data/vocab_en.txt", "r") as f:
+    vocab_mt_en = list([w.rstrip() for w in f.readlines()])
+
+# try a few custom sentences
+for _ in range(5):
+    sent = " ".join(random.choices(
+        vocab_mt_en, k=10
+    ))
+
+    # custom sentence
+    cycle_translate(sent)
+    print()
 
 # char zerogram 8
-cycle_translate("TzpEyVsCJ EqTLp  W sR PCgAK  CZpWGaRxXOaD ot lIo WAetE gHQG"
-                )
+cycle_translate("TzpEyVsCJ EqTLp  W sR PCgAK  CZpWGaRxXOaD ot lIo WAetE gHQG")
+
 # char unigram en
 cycle_translate(
     "P eniirmatugh)whe snd)we.eamIhvtrar)ostov dtiscehesArre  Sc5itodp tnol iect0o s1himEtm) or ia een 1oeu cno. n .rrs"

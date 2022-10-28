@@ -1,5 +1,6 @@
 # added by zouharvi
 /data
+/data_vocab
 /checkpoints
 
 # Byte-compiled / optimized / DLL files
