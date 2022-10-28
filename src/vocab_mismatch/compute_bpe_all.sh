@@ -9,17 +9,17 @@ cp "${WMT19_PATH}/bpecodes" data_vocab/wmt19m_bpecodes.txt
 cp "${WMT19_PATH}/dict.en.txt" data_vocab/wmt19m_dict.txt
 
 # # extract data
-# echo "EXTRACTING DATA"
-# for DATASET in "wmt19" "para_crawl" "europarl"; do
-#     python3 ./src/vocab_mismatch/dump_dataset.py --output data_vocab/${DATASET}.txt --dataset $DATASET
-# done
+echo "EXTRACTING DATA"
+for DATASET in "wmt19" "para_crawl" "europarl"; do
+    python3 ./src/vocab_mismatch/dump_dataset.py --output data_vocab/${DATASET}.txt --dataset $DATASET
+done
 
-# # train BPE
-# echo "TRAINING BPE";
-# for DATASET in "wmt19" "para_crawl" "europarl"; do
-#     $FASTBPE_BIN getvocab data_vocab/${DATASET}.txt > data_vocab/${DATASET}_dict.txt
-#     $FASTBPE_BIN learnbpe 30000 data_vocab/${DATASET}.txt > data_vocab/${DATASET}_bpecodes.txt
-# done
+# train BPE
+echo "TRAINING BPE";
+for DATASET in "wmt19" "para_crawl" "europarl"; do
+    $FASTBPE_BIN getvocab data_vocab/${DATASET}.txt > data_vocab/${DATASET}_dict.txt
+    $FASTBPE_BIN learnbpe 30000 data_vocab/${DATASET}.txt > data_vocab/${DATASET}_bpecodes.txt
+done
 
 # clean up log file
 rm -f data_vocab/compute_bpe_all.out
