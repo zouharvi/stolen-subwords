@@ -2,6 +2,7 @@
 /data
 /data_vocab
 /checkpoints
+/fastBPE
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,32 +1,25 @@
 #!/usr/bin/env python3
 
 import sys
-import fastBPE
 import argparse
 import json
+import tqdm
 
 args = argparse.ArgumentParser()
-args.add_argument("--bpecodes")
 args.add_argument("--dataset", nargs="+")
 args.add_argument("--target-dataset")
 args.add_argument("--bpe-dataset")
 args = args.parse_args()
 
-print("Loading BPE", file=sys.stderr)
-bpe_model = fastBPE.fastBPE(args.bpecodes)
-
-print("Loading dataset", file=sys.stderr)
-
-
 # debug print
 # print("\n".join(data_encoded[:20]))
 encoded_len = 0
 for f in args.dataset:
+    print("Loading dataset", file=sys.stderr)
     with open(f, "r") as f:
-        data = [x.rstrip() for x in f.readlines()]
-    print("Encoding dataset", file=sys.stderr)
-    data_encoded = bpe_model.apply(data)
-    encoded_len += sum([x.count(" ")+1 for x in data_encoded])
+        data = [x.rstrip() for x in tqdm.tqdm(f.readlines())]
+    print("Computing encoded len", file=sys.stderr)
+    encoded_len += sum([x.count(" ")+1 for x in tqdm.tqdm(data)])
 
 print(json.dumps(
     {
