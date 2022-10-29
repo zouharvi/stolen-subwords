@@ -9,21 +9,11 @@ FASTBPE_BIN="fastBPE/fast"
 # run BPE in parallel
 for DATASET1 in "wmt19m" "EuroPat" "EUbookshop" "ParaCrawl"; do
     for DATASET2 in "EuroPat" "EUbookshop" "ParaCrawl"; do
-        echo "Running BPE trained on $DATASET1 on data from $DATASET2:";
-        $FASTBPE_BIN applybpe_stream data_vocab/${DATASET1}.de-en.bpecodes < data_vocab/${DATASET2}.de-en.tok.en > data_vocab/${DATASET2}.de-en.bpe.en &
-        echo "Running BPE trained on $DATASET1 on data from $DATASET2:";
-        $FASTBPE_BIN applybpe_stream data_vocab/${DATASET1}.de-en.bpecodes < data_vocab/${DATASET2}.de-en.tok.de > data_vocab/${DATASET2}.de-en.bpe.de &
-    done;
-done
-
-for DATASET1 in "wmt19m" "EuroPat" "EUbookshop" "ParaCrawl"; do
-    for DATASET2 in "EuroPat" "EUbookshop" "ParaCrawl"; do
-        echo "Computing for BPE trained on $DATASET1 on data from $DATASET2:";
-        ./src/vocab_mismatch/compute_bpe_len.py \
-            --dataset "data_vocab/${DATASET2}.de-en.bpe.en" \
-            --dataset "data_vocab/${DATASET2}.de-en.bpe.de" \
-            --target-dataset ${DATASET2} \
-            --bpe-dataset $DATASET1 \
-            >> data_vocab/compute_bpe_all.out;
+        echo "Submitting BPE trained on $DATASET1 on data from $DATASET2:";
+        sbatch --time=0-12 --ntasks=16 --mem-per-cpu=3G \
+            --wrap="$FASTBPE_BIN applybpe_stream data_vocab/${DATASET1}.de-en.bpecodes < data_vocab/${DATASET2}.de-en.tok.en > data_vocab/${DATASET2}.de-en.bpe.en"
+        echo "Submitting BPE trained on $DATASET1 on data from $DATASET2:";
+        sbatch --time=0-12 --ntasks=16 --mem-per-cpu=3G \
+            --wrap="$FASTBPE_BIN applybpe_stream data_vocab/${DATASET1}.de-en.bpecodes < data_vocab/${DATASET2}.de-en.tok.de > data_vocab/${DATASET2}.de-en.bpe.de"
     done;
 done
