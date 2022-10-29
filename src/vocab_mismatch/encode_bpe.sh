@@ -10,10 +10,10 @@ FASTBPE_BIN="fastBPE/fast"
 for DATASET1 in "wmt19m" "EuroPat" "EUbookshop" "ParaCrawl"; do
     for DATASET2 in "EuroPat" "EUbookshop" "ParaCrawl"; do
         echo "Submitting BPE trained on $DATASET1 on data from $DATASET2:";
-        sbatch --time=0-12 --ntasks=16 --mem-per-cpu=3G \
-            --wrap="$FASTBPE_BIN applybpe_stream data_vocab/${DATASET1}.de-en.bpecodes < data_vocab/${DATASET2}.de-en.tok.en > data_vocab/${DATASET2}.de-en.bpe.en"
+        sbatch --time=0-12 --ntasks=10 --mem-per-cpu=6G \
+            --wrap="$FASTBPE_BIN applybpe data_vocab/${DATASET2}.de-en.bpe${DATASET1}.en data_vocab/${DATASET2}.de-en.tok.en data_vocab/${DATASET1}.de-en.bpecodes"
         echo "Submitting BPE trained on $DATASET1 on data from $DATASET2:";
-        sbatch --time=0-12 --ntasks=16 --mem-per-cpu=3G \
-            --wrap="$FASTBPE_BIN applybpe_stream data_vocab/${DATASET1}.de-en.bpecodes < data_vocab/${DATASET2}.de-en.tok.de > data_vocab/${DATASET2}.de-en.bpe.de"
+        sbatch --time=0-12 --ntasks=10 --mem-per-cpu=6G \
+            --wrap="$FASTBPE_BIN applybpe data_vocab/${DATASET2}.de-en.bpe${DATASET1}.de data_vocab/${DATASET2}.de-en.tok.de data_vocab/${DATASET1}.de-en.bpecodes"
     done;
 done

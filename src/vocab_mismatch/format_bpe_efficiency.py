@@ -13,21 +13,20 @@ data_new = collections.defaultdict(dict)
 
 for line in data:
     data_new[
-        line["bpe_dataset"].lstrip("data_vocab/").rstrip(".txt")
+        line["bpe_dataset"]
     ][
-        line["target_dataset"].lstrip("data_vocab/").rstrip(".txt")
+        line["target_dataset"]
     ] = line["subword_count"]
 
 # datasets = list(data_new["wmt19"].keys())
-datasets = ["wmt19", "para_crawl", "europarl"]
+datasets = ["ParaCrawl", "EuroPat", "EUbookshop"]
 
 PRETTY_NAME = {
     "wmt19m": "Victim",
-    "wmt19": "WMT19",
-    "para_crawl": "Paracrawl",
-    "europarl": "Europarl",
+    "EuroPat": "Patents",
+    "ParaCrawl": "ParaCrawl",
+    "EUbookshop": "Bookshop",
 }
-
 
 for bpe_dataset, data_new_local in data_new.items():
     out += f"{PRETTY_NAME[bpe_dataset]}"
