@@ -1,4 +1,4 @@
 datasets
 tqdm
 nltk
-mosestokenizer
+sacremoses
