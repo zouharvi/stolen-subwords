@@ -5,6 +5,7 @@ sys.path.append("src")
 import utils
 import argparse
 import sacremoses
+import tqdm
 
 args = argparse.ArgumentParser()
 args.add_argument("--output")
@@ -18,7 +19,7 @@ tokenizer_en = sacremoses.MosesTokenizer("en")
 tokenizer_de = sacremoses.MosesTokenizer("de")
 
 with open(args.output, "w") as f:
-    for l in data_en:
+    for l in tqdm.tqdm(data_en):
         f.write(" ".join(tokenizer_en.tokenize(l)) + "\n")
-    for l in data_de:
+    for l in tqdm.tqdm(data_de):
         f.write(" ".join(tokenizer_de.tokenize(l)) + "\n")
