@@ -3,6 +3,7 @@
 /data_vocab
 /checkpoints
 /fastBPE
+slurm*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

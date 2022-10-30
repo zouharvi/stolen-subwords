@@ -15,10 +15,17 @@ args.add_argument(
 args.add_argument(
     "-i", "--input", default=None,
 )
+args.add_argument(
+    "-m0", type=int, default=None,
+)
+args.add_argument(
+    "-m1", type=int, default=None,
+)
 args = args.parse_args()
 
 fin = open(args.input, "r")
 fout = open(args.output, "w")
+
 
 def model_wrapper(model):
     import torch
@@ -32,11 +39,25 @@ def model_wrapper(model):
     else:
         raise Exception(f"Model {model} not yet covered")
 
+
 model = model_wrapper(args.model)
 model.eval()
 model.to("cuda")
 
-for line_in in tqdm.tqdm(fin):
-    line_in = line_in.rstrip("\n")
-    line_out = model.translate(line_in)
-    fout.write(line_out + "\n")
+batch = []
+for line_i, line_src in enumerate(tqdm.tqdm(fin.readlines()[args.m0 * 1000000:args.m1 * 1000000])):
+    line_src = line_src.rstrip("\n")
+    batch.append(line_src)
+    if len(batch) == 2000:
+        batch_out = model.translate(batch)
+        batch = []
+        for line_out in batch_out:
+            fout.write(line_out + "\n")
+        fout.flush()
+
+if len(batch) != 0:
+    batch_out = model.translate(batch)
+    batch = []
+    for line_out in batch_out:
+        fout.write(line_out + "\n")
+    fout.flush()
