@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+from retry import retry
 import tqdm
 
 args = argparse.ArgumentParser()
@@ -26,7 +27,7 @@ args = args.parse_args()
 fin = open(args.input, "r")
 fout = open(args.output, "w")
 
-
+@retry(delay=10, jitter=5, tries=10)
 def model_wrapper(model):
     import torch
     import fairseq
@@ -42,7 +43,9 @@ def model_wrapper(model):
 
 model = model_wrapper(args.model)
 model.eval()
-model.to("cuda")
+# speedup
+model = model.bfloat16()
+model = model.to("cuda")
 
 batch = []
 for line_i, line_src in enumerate(tqdm.tqdm(fin.readlines()[args.m0 * 1000000:args.m1 * 1000000])):
@@ -61,3 +64,9 @@ if len(batch) != 0:
     for line_out in batch_out:
         fout.write(line_out + "\n")
     fout.flush()
+
+# with bfloat16
+# 3:02, 90it/s
+
+# without bfloat16
+# 4:00 70it/s

@@ -2,3 +2,4 @@ datasets
 tqdm
 nltk
 sacremoses
+retry
