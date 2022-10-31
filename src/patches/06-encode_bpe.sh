@@ -10,18 +10,10 @@ FASTBPE_BIN="fastBPE/fast"
 for DATASET1 in "wmt19m" "EuroPat" "EUbookshop" "ParaCrawl"; do
     for DATASET2 in "EuroPat" "EUbookshop" "ParaCrawl"; do
         echo "Submitting BPE trained on $DATASET1 on data from $DATASET2:";
-<<<<<<< HEAD:src/vocab_mismatch/encode_bpe.sh
         sbatch --time=0-12 --ntasks=10 --mem-per-cpu=6G \
             --wrap="$FASTBPE_BIN applybpe data_vocab/${DATASET2}.de-en.bpe${DATASET1}.en data_vocab/${DATASET2}.de-en.tok.en data_vocab/${DATASET1}.de-en.bpecodes"
         echo "Submitting BPE trained on $DATASET1 on data from $DATASET2:";
         sbatch --time=0-12 --ntasks=10 --mem-per-cpu=6G \
             --wrap="$FASTBPE_BIN applybpe data_vocab/${DATASET2}.de-en.bpe${DATASET1}.de data_vocab/${DATASET2}.de-en.tok.de data_vocab/${DATASET1}.de-en.bpecodes"
-=======
-        sbatch --time=0-12 --ntasks=16 --mem-per-cpu=3G \
-            --wrap="$FASTBPE_BIN applybpe_stream data_vocab/${DATASET1}.de-en.bpecodes < data_vocab/${DATASET2}.de-en.tok.en > data_vocab/${DATASET1}.de-en.bpe.${DATASET2}.en"
-        echo "Submitting BPE trained on $DATASET1 on data from $DATASET2:";
-        sbatch --time=0-12 --ntasks=16 --mem-per-cpu=3G \
-            --wrap="$FASTBPE_BIN applybpe_stream data_vocab/${DATASET1}.de-en.bpecodes < data_vocab/${DATASET2}.de-en.tok.de > data_vocab/${DATASET1}.de-en.bpe.${DATASET2}.de"
->>>>>>> dfa3b10 (submit translation):src/patches/04-encode_bpe.sh
     done;
 done

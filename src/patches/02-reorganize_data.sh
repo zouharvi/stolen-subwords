@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-mkdir -p data_vocab/translated
-
 for DATASET1 in "EuroPat" "EUbookshop" "ParaCrawl"; do
         mkdir -p "data_vocab/$DATASET1.de-en";
         mv "data_vocab/${DATASET1}.de-en.de" "data_vocab/$DATASET1.de-en/orig.de";
