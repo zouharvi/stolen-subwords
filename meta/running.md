@@ -1,6 +1,7 @@
 |date|status|nickname|comment|command|
 |-|-|-|-|-|
-|30-10-2022|running||translate datasets|`./src/vocab_mismatch/translate_datasets.sh`|
+|01-11-2022|running||dataset overview|`./src/patches/08-submit_overview_datasets.sh`|
+|30-10-2022|running||translate datasets|`./src/patches/03-submit_translate_datasets.sh`|
 |29-10-2022|ok||compute BPE efficiency|`sbatch --time=0-4 --ntasks=6 --mem-per-cpu=6G ./src/vocab_mismatch/compute_bpe_len.sh`|
 |29-10-2022|ok||apply bpe|`./src/vocab_mismatch/encode_bpe.sh`|
 |29-10-2022|ok||tokenize data|`sbatch --time=0-4 --ntasks=15 --mem-per-cpu=2G ./src/vocab_mismatch/train_bpe.sh`|
