@@ -1,2 +1,6 @@
-# nonsense-to-nonsense
-Zero-data blackbox machine translation model distillation / stealing
+# Vocabulary Stealing
+
+Description TODO
+
+Misc:
+- Zero-data blackbox machine translation model distillation / stealing
