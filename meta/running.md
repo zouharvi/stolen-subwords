@@ -1,8 +1,10 @@
 |start date|status|nickname|comment|command|
 |-|-|-|-|-|
+|02-11-2022|running||translate & encode vocab|`./src/patches/11-translate_encode_vocabs.sh"`|
+|02-11-2022|ok||minimize data data|`sbatch --time=0-4 --ntasks=10 --mem-per-cpu=8G --wrap="python3 ./src/vocab_mismatch/minimize_vocab.py -i data_vocab/All.de-en/orig.tok.de.uniq"`|
 |02-11-2022|ok||tokenize data|`./src/patches/04-tokenize_data.sh`|
-|01-11-2022|ok, running||encode bpe|`./src/patches/06-encode_bpe.sh` (only for All)|
-|01-11-2022|ok, running||train bpe|`./src/patches/05-train_bpe.sh`|
+|01-11-2022|ok, ok||encode bpe|`./src/patches/06-encode_bpe.sh` (only for All)|
+|01-11-2022|ok, ok||train bpe|`./src/patches/05-train_bpe.sh`|
 |01-11-2022|ok||tokenize data|`sbatch --time=0-4 --ntasks=32 --mem-per-cpu=1G ./src/patches/04-tokenize_data.sh`|
 |01-11-2022|ok||dataset overview|`./src/patches/08-submit_overview_datasets.sh`|
 |30-10-2022|ok||translate datasets|`./src/patches/03-submit_translate_datasets.sh`|

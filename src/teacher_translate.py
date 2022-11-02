@@ -17,10 +17,10 @@ args.add_argument(
     "-i", "--input", default=None,
 )
 args.add_argument(
-    "-m0", type=int, default=None,
+    "-m0", type=int, default=0,
 )
 args.add_argument(
-    "-m1", type=int, default=None,
+    "-m1", type=int, default=10**9,
 )
 args = args.parse_args()
 
