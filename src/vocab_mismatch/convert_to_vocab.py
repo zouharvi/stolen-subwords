@@ -6,6 +6,7 @@ import tqdm
 args = argparse.ArgumentParser()
 args.add_argument("-i", "--input", default="data_vocab/wmt19m.de-en.bpecodes")
 args.add_argument("-o", "--output", default=None)
+args.add_argument("--no-debpe", action="store_true")
 args = args.parse_args()
 
 is_bpe = args.input.endswith("bpecodes")
@@ -21,16 +22,18 @@ def load_bpe(f):
     return vocab
 
 def process_line(l):
-    out = set()
     if l.endswith("\n"):
         l = l[:-1]
-    for w in l.split(" "):
-        if w.endswith("@@"):
-            out.add(w[:-2])
-        else:
-            out.add(w + "</w>")
-    return out
-
+    if args.no_debpe:
+        return set(l.split(" "))
+    else:
+        out = set()
+        for w in l.split(" "):
+            if w.endswith("@@"):
+                out.add(w[:-2])
+            else:
+                out.add(w + "</w>")
+        return out
 
 def load_simple(f):
     import multiprocess
@@ -57,7 +60,7 @@ if is_bpe:
 else:
     data = load_simple(args.input)
 
-print("Loaded", len(data), "items")
+print("Saved", len(data), "items")
 
 if args.output is None:
     args.output = args.input.replace(".bpecodes", ".vocab").replace(".all", ".vocab")
