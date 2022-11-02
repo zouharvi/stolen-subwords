@@ -25,13 +25,15 @@ done
 
 DATASET1="All"
 for LANG in "en" "de"; do
-    sbatch --time=0-4 --ntasks=10 --mem-per-cpu=6G \
-        --output="logs/applybpe_${DATASET1}_${LANG}.log" \
-        --job-name="applybpe_${DATASET1}_${LANG}" \
-        --wrap="\
-        $FASTBPE_BIN applybpe \
-            data_vocab/${DATASET1}.de-en/teacher_small.tok.bpe.wmt19m.${LANG} \
-            data_vocab/${DATASET1}.de-en/teacher_small.tok.${LANG} \
-            data_vocab/wmt19m.de-en.bpecodes;
-        ";
+    for PREFIX in "orig" "teacher"; do
+        sbatch --time=0-4 --ntasks=20 --mem-per-cpu=3G \
+            --output="logs/applybpe_${DATASET1}_${LANG}_${PREFIX}.log" \
+            --job-name="applybpe_${DATASET1}_${LANG}_${PREFIX}" \
+            --wrap="\
+            $FASTBPE_BIN applybpe \
+                data_vocab/${DATASET1}.de-en/${PREFIX}.tok.bpe.wmt19m.${LANG} \
+                data_vocab/${DATASET1}.de-en/${PREFIX}.tok.${LANG} \
+                data_vocab/wmt19m.de-en.bpecodes;
+            ";
+    done;
 done;

@@ -1,10 +1,11 @@
-|date|status|nickname|comment|command|
+|start date|status|nickname|comment|command|
 |-|-|-|-|-|
-|01-11-2022|running (teacher_small)||encode bpe|`./src/patches/06-encode_bpe.sh` (only for All)|
-|01-11-2022|ok, running (teacher_small)||train bpe|`./src/patches/05-train_bpe.sh`|
+|02-11-2022|ok||tokenize data|`./src/patches/04-tokenize_data.sh`|
+|01-11-2022|ok, running||encode bpe|`./src/patches/06-encode_bpe.sh` (only for All)|
+|01-11-2022|ok, running||train bpe|`./src/patches/05-train_bpe.sh`|
 |01-11-2022|ok||tokenize data|`sbatch --time=0-4 --ntasks=32 --mem-per-cpu=1G ./src/patches/04-tokenize_data.sh`|
 |01-11-2022|ok||dataset overview|`./src/patches/08-submit_overview_datasets.sh`|
-|30-10-2022|running||translate datasets|`./src/patches/03-submit_translate_datasets.sh`|
+|30-10-2022|ok||translate datasets|`./src/patches/03-submit_translate_datasets.sh`|
 |29-10-2022|ok||compute BPE efficiency|`sbatch --time=0-4 --ntasks=6 --mem-per-cpu=6G ./src/vocab_mismatch/compute_bpe_len.sh`|
 |29-10-2022|ok||apply bpe|`./src/vocab_mismatch/encode_bpe.sh`|
 |29-10-2022|ok||tokenize data|`sbatch --time=0-4 --ntasks=15 --mem-per-cpu=2G ./src/vocab_mismatch/train_bpe.sh`|

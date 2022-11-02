@@ -5,7 +5,7 @@ import tqdm
 
 args = argparse.ArgumentParser()
 args.add_argument("-i", "--input", default="data_vocab/wmt19m.de-en.bpecodes")
-args.add_argument("-o", "--output", default="data_vocab/tmp.vocab")
+args.add_argument("-o", "--output", default=None)
 args = args.parse_args()
 
 is_bpe = args.input.endswith("bpecodes")
@@ -20,21 +20,37 @@ def load_bpe(f):
     vocab = set([l[0] + l[1] for l in data])
     return vocab
 
+def process_line(l):
+    out = set()
+    if l.endswith("\n"):
+        l = l[:-1]
+    for w in l.split(" "):
+        if w.endswith("@@"):
+            out.add(w[:-2])
+        else:
+            out.add(w + "</w>")
+    return out
+
 
 def load_simple(f):
+    import multiprocess
+    pool = multiprocess.Pool()
+    BATCH_SIZE=1_000_000
+    print("Counting number of lines")
+    num_lines = sum(1 for _ in open(f, "r"))
     print("Loading")
     out = set()
     with open(f, "r") as f:
-        for l in tqdm.tqdm(f):
-            l = l.rstrip("\n")
-            # we should add </w> to word ending tokens
-            for w in l.split(" "):
-                if w.endswith("@@"):
-                    out.add(w.replace("@@", ""))
-                else:
-                    out.add(w.replace("@@", "") + "</w>")
+        batch = []
+        for _ in tqdm.tqdm(list(range(num_lines//BATCH_SIZE))):
+            for _ in range(1_000_000):
+                batch.append(f.readline())
+            vocab_local = list(pool.map(process_line, batch))
+            vocab_local = {w for vocab in vocab_local for w in vocab}
+            out |= vocab_local
+            print("Current vocab:", len(out))
+            batch = []
     return out
-
 
 if is_bpe:
     data = load_bpe(args.input)
@@ -42,6 +58,9 @@ else:
     data = load_simple(args.input)
 
 print("Loaded", len(data), "items")
+
+if args.output is None:
+    args.output = args.input.replace(".bpecodes", ".vocab").replace(".all", ".vocab")
 
 with open(args.output, "w") as f:
     for v in data:

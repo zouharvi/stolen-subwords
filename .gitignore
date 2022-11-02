@@ -1,6 +1,8 @@
 # added by zouharvi
 /data
 /data_vocab
+/nonsense_data
+/data_backup
 /checkpoints
 /fastBPE
 slurm*
