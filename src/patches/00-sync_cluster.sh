@@ -10,3 +10,6 @@ rsync -azP --filter=":- .gitignore" --exclude .git/ . euler:/cluster/work/sachan
 # scp euler:/cluster/work/sachan/vilem/vocab-stealing/data_vocab/All.de-en/orig.tok.*{en,de} data_vocab/All.de-en/
 # scp data_vocab/All.de-en/orig.tok.de.uniq euler:/cluster/work/sachan/vilem/vocab-stealing/data_vocab/All.de-en/
 # scp euler:/cluster/work/sachan/vilem/vocab-stealing/data_vocab/All.de-en/orig.tok.de.uniq_small data_vocab/All.de-en/
+# scp euler:/cluster/work/sachan/vilem/vocab-stealing/data_vocab/All.de-en/*teacher.bpe* data_vocab/All.de-en/
+# scp euler:/cluster/work/sachan/vilem/vocab-stealing/data_vocab/All.de-en/teacher.{en,de} data_vocab/All.de-en/
+# scp data_vocab/CCAligned.de-en/orig.{en,de} euler:/cluster/work/sachan/vilem/vocab-stealing/data_vocab/CCAligned.de-en/

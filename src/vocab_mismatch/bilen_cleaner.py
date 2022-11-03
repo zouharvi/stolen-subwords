@@ -35,10 +35,6 @@ lens_b = []
 for a, b in tqdm.tqdm(zip(fin1, fin2)):
     a = a.rstrip()
     b = b.rstrip()
-    # a = a.replace("."*10, ".")
-    # b = b.replace("."*10, ".")
-    # a = a.replace(". "*5, ".")
-    # b = b.replace(". "*5, ".")
     if len(a) >= 1000 or len(b) >= 1000:
         continue
         print(a)

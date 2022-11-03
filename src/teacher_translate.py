@@ -20,7 +20,7 @@ args.add_argument(
     "-m0", type=int, default=0,
 )
 args.add_argument(
-    "-m1", type=int, default=10**9,
+    "-m1", type=int, default=10**6,
 )
 args = args.parse_args()
 
@@ -48,7 +48,7 @@ model = model.bfloat16()
 model = model.to("cuda")
 
 batch = []
-for line_i, line_src in enumerate(tqdm.tqdm(fin.readlines()[args.m0 * 1000000:args.m1 * 1000000])):
+for line_i, line_src in enumerate(tqdm.tqdm(fin.readlines()[args.m0 * 100000:args.m1 * 100000])):
     line_src = line_src.rstrip("\n")
     batch.append(line_src)
     if len(batch) == 2000:

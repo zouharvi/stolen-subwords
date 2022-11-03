@@ -1,22 +1,22 @@
 #!/usr/bin/bash
 
-for DATASET in "EuroPat" "EUbookshop" "ParaCrawl"; do
+for DATASET in "ParaCrawl" "EuroPat" "CCAligned"; do
     for LANG in "en" "de"; do
-        sbatch --time=0-4 --ntasks=20 --mem-per-cpu=3G \
+        sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
             --output="logs/tokenize_${DATASET}.${LANG}_orig.log" \
             --job-name="tokenize_${DATASET}.${LANG}_orig" \
-            --wrap="cat \"data_vocab/${DATASET}.de-en/orig.${LANG}\" | sacremoses -j 20 -l ${LANG} tokenize > \"data_vocab/${DATASET}.de-en/orig.tok.${LANG}\"";
+            --wrap="cat \"data_vocab/${DATASET}.de-en/orig.${LANG}\" | sacremoses -j 40 -l ${LANG} tokenize > \"data_vocab/${DATASET}.de-en/orig.tok.${LANG}\"";
 
-        sbatch --time=0-4 --ntasks=20 --mem-per-cpu=3G \
-            --output="logs/tokenize_${DATASET}.${LANG}_teacher.log" \
-            --job-name="tokenize_${DATASET}.${LANG}_teacher" \
-            --wrap="cat \"data_vocab/${DATASET}.de-en/teacher.${LANG}\" | sacremoses -j 20 -l ${LANG} tokenize > \"data_vocab/${DATASET}.de-en/teacher.tok.${LANG}\"";
+        # sbatch --time=0-4 --ntasks=20 --mem-per-cpu=3G \
+        #     --output="logs/tokenize_${DATASET}.${LANG}_teacher.log" \
+        #     --job-name="tokenize_${DATASET}.${LANG}_teacher" \
+        #     --wrap="cat \"data_vocab/${DATASET}.de-en/teacher.${LANG}\" | sacremoses -j 20 -l ${LANG} tokenize > \"data_vocab/${DATASET}.de-en/teacher.tok.${LANG}\"";
     done;
 done;
 
 
 # join all in All
-for DATASET in "EuroPat" "EUbookshop" "ParaCrawl"; do
+for DATASET in "ParaCrawl" "EuroPat" "CCAligned"; do
     for PREFIX in "orig" "teacher"; do
         for LANG in "en" "de"; do
             echo "Joining ${DATASET}.${LANG}"; 
