@@ -5,7 +5,7 @@ import tqdm
 
 args = argparse.ArgumentParser()
 args.add_argument("-v1", "--vocab-1", default="data_vocab/wmt19m.de-en.vocab")
-args.add_argument("-v2", "--vocab-2", default="data_vocab/All.de-en/self.vocab")
+args.add_argument("-v2", "--vocab-2", default="data_vocab/All.de-en/orig.vocab")
 args = args.parse_args()
 
 def load(f):

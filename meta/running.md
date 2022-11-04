@@ -1,10 +1,13 @@
 |start date|status|nickname|comment|command|
 |-|-|-|-|-|
+|04-11-2022|running||dataset overview (All)|`./src/patches/08-submit_overview_datasets.sh`|
+|04-11-2022|ok||tokenize (CCAligned.teacher)|`./src/patches/04-tokenize_data.sh`|
+|04-11-2022|ok||train bpe (All.teacher)|`./src/patches/05-train_bpe.sh`|
 |03-11-2022|ok||encode bpe (to/from CCAligned, from All)|`./src/patches/06-encode_bpe.sh`|
 |03-11-2022|ok||train bpe (All, CCAligned)|`./src/patches/05-train_bpe.sh`|
-|03-11-2022|running||translate CCAligned (fast micro)|`./src/patches/03-submit_translate_datasets.sh`|
+|03-11-2022|ok||translate CCAligned (fast micro)|`./src/patches/03-submit_translate_datasets.sh`|
 |03-11-2022|ok||tokenize CCAligned|`./src/patches/04-tokenize_data.sh`|
-|03-11-2022|ok, running||dataset overview (All, CCAligned)|`./src/patches/08-submit_overview_datasets.sh`|
+|03-11-2022|ok, ok||dataset overview (All, CCAligned)|`./src/patches/08-submit_overview_datasets.sh`|
 |02-11-2022|ok||translate & encode vocab|`./src/patches/11-translate_encode_vocabs.sh"`|
 |02-11-2022|ok||minimize data data|`sbatch --time=0-4 --ntasks=10 --mem-per-cpu=8G --wrap="python3 ./src/vocab_mismatch/minimize_vocab.py -i data_vocab/All.de-en/orig.tok.de.uniq"`|
 |02-11-2022|ok||tokenize data|`./src/patches/04-tokenize_data.sh`|

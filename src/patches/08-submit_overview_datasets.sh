@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
 for DATASET in "ParaCrawl" "EuroPat" "CCAligned"; do
-for DATASET in "All"; do
     echo "Submitting overview of ${DATASET}";
     sbatch --time=0-4 --ntasks=40 --mem-per-cpu=2G \
         --output="logs/overview_${DATASET}.log" \
