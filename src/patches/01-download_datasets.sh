@@ -33,5 +33,5 @@ rm ParaCrawl.de-en.xml README LICENSE de-en.txt.zip
 
 cd ..
 
-# head -n 10000000 CCAligned.de-en.en > CCAligned.de-en/orig.en
-# head -n 10000000 CCAligned.de-en.de > CCAligned.de-en/orig.de
+# head -n 10000000 EuroPat.de-en.en > EuroPat.de-en/orig.en
+# head -n 10000000 EuroPat.de-en.de > EuroPat.de-en/orig.de

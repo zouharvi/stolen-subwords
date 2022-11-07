@@ -22,8 +22,10 @@ for DATASET1 in "ParaCrawl" "EuroPat" "CCAligned"; do
     done;
 done
 
+
 for DATASET1 in "wmt19m"; do
-    for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
+    # for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
+    for DATASET2 in "EuroPat"; do
         for LANG in "en" "de"; do
             echo "Submitting BPE trained on $DATASET1 (${LANG}) on data from $DATASET2:";
             sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \

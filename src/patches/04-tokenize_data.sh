@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-for DATASET in "ParaCrawl" "EuroPat" "CCAligned"; do
+# for DATASET in "ParaCrawl" "EuroPat" "CCAligned"; do
+for DATASET in "EuroPat"; do
     for PREFIX in "orig" "teacher"; do
         for LANG in "en" "de"; do
             sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \

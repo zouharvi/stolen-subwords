@@ -1,13 +1,12 @@
 #!/usr/bin/bash
 
-# for DATASET in "ParaCrawl" "EuroPat" "CCAligned"; do
-for DATASET in "CCAligned"; do
-    for m0 in $(seq 0 99); do
+for DATASET in "ParaCrawl" "EuroPat" "CCAligned"; do
+    for m0 in $(seq 0 9); do
         m1=$(($m0 + 1));
 
         echo "Submitting translation of $DATASET ($m0-$m1)";
         # Into German
-        sbatch --time=0-04 --ntasks=8 --mem-per-cpu=3G --gpus=1 \
+        sbatch --time=01-00 --ntasks=8 --mem-per-cpu=3G --gpus=1 \
             --job-name="translate_teacher_${DATASET}.${m0}.de" \
             --output="logs/translate_teacher_${DATASET}.${m0}.de.log" \
             --wrap="python3 src/teacher_translate.py \
@@ -17,7 +16,7 @@ for DATASET in "CCAligned"; do
                 -m0 $m0 -m1 $m1";
         echo "Submitting translation of $DATASET ($m0-$m1)";
         # Into English
-        sbatch --time=0-04 --ntasks=8 --mem-per-cpu=3G --gpus=1 \
+        sbatch --time=01-00 --ntasks=8 --mem-per-cpu=3G --gpus=1 \
             --job-name="translate_teacher_${DATASET}.${m0}.en" \
             --output="logs/translate_teacher_${DATASET}.${m0}.en.log" \
             --wrap="python3 src/teacher_translate.py \

@@ -1,6 +1,7 @@
 # added by zouharvi
 /data
 /data_vocab
+/data_bin
 /nonsense_data
 /data_backup
 /checkpoints

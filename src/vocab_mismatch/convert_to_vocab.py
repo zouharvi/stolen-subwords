@@ -68,3 +68,4 @@ if args.output is None:
 with open(args.output, "w") as f:
     for v in data:
         f.write(v + "\n")
+

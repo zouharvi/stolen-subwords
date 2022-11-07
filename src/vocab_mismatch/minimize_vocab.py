@@ -7,10 +7,14 @@ args = argparse.ArgumentParser()
 args.add_argument(
     "-i", "--input", default="data_vocab/wmt19m.de-en.tok.en.uniq")
 args.add_argument("-o", "--output", default=None)
+args.add_argument("-l", "--lowercase", action="store_true")
 args = args.parse_args()
 
 with open(args.input, "r") as f:
     vocab_orig = [x.strip() for x in f.readlines()]
+
+if args.lowercase:
+    vocab_orig = list({x.lower() for x in vocab_orig})
 
 # sort by length
 vocab_orig.sort(key=lambda x: len(x), reverse=True)
