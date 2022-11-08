@@ -6,7 +6,7 @@
 for DATASET1 in "wmt19m" "ParaCrawl" "EuroPat" "CCAligned" "All"; do
     for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
         echo "Computing for BPE trained on $DATASET1 on data from $DATASET2:";
-        ./src/vocab_mismatch/compute_bpe_len.py \
+        ./src/compute_bpe_len.py \
             --dataset "data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.en" \
             --dataset "data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.de" \
             --target-dataset ${DATASET2} \

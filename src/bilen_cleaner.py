@@ -4,7 +4,7 @@ import argparse
 
 import tqdm
 
-# python3 ./src/vocab_mismatch/bilen_cleaner.py \
+# python3 ./src/bilen_cleaner.py \
 #     -i1 ./data_vocab/EUbookshop.de-en.en \
 #     -i2 ./data_vocab/EUbookshop.de-en.de \
 #     -o1 ./data_vocab/EUbookshop.de-en/orig.en \
