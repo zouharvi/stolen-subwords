@@ -1,9 +1,10 @@
 |start date|status|nickname|comment|command|
 |-|-|-|-|-|
-|07-11-2022|running||train students|`./src/patches/15-train_model_aa_av_va_vv.sh`|
+|08-11-2022|running||train students (-wmt19m, -CCAligned)|`./src/patches/15-students_base.sh`|
+|08-11-2022|ok||preprocessing data CCAligned-CCAligned|`./src/patches/14-preprocess_data.sh`|
 |07-11-2022|ok||preprocessing data|`sbatch --time=01-00 --ntasks=100 --mem-per-cpu=1GB --output="logs/preprocess_table_2" ./src/patches/14-preprocess_data.sh`|
 |07-11-2022|running||translate & encode vocab|`./src/patches/11-translate_encode_vocabs.sh`|
-|07-11-2022|ok||apply BPE teacher|`./src/patches/06-apply_bpe.sh`|
+|07-11-2022|ok||apply BPE CC teacher|`./src/patches/06-apply_bpe.sh`|
 |07-11-2022|ok||train BPE CC teacher|`./src/patches/05-train_bpe.sh`|
 |07-11-2022|ok||minimize vocab|`sbatch --time=0-4 --ntasks=50 --mem-per-cpu=1500M --job-name="minimize vocab" ./src/patches/13-minimize_vocab.sh`|
 |07-11-2022|ok||apply bpe (All.teacher)|`./src/apply_bpe.sh`|

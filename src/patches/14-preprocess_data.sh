@@ -5,7 +5,7 @@
 
 # for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
 for DATASET2 in "CCAligned"; do
-    DATASET1=wmt19m;
+for DATASET1 in "CCAligned" "wmt19m"; do
     for PREFIX1 in "orig" "teacher"; do
     for PREFIX2 in "orig" "teacher"; do
         for LANGS in "en-de" "de-en"; do
@@ -18,21 +18,25 @@ for DATASET2 in "CCAligned"; do
             mkdir -p ${TEXT_DIR};
             TEXT_SRC="data_vocab/${DATASET2}.de-en/${PREFIX1}.bpe.${DATASET1}.${LANG1}";
             TEXT_TGT="data_vocab/${DATASET2}.de-en/${PREFIX2}.bpe.${DATASET1}.${LANG2}";
+            TEXT_SRC_ORIG="data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.${LANG1}";
+            TEXT_TGT_ORIG="data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.${LANG2}";
 
-            head -n 950000 ${TEXT_SRC} > "${TEXT_DIR}/train.${LANG1}";
-            tail -n 50000 ${TEXT_SRC} | head -n 25000 > "${TEXT_DIR}/dev.${LANG1}";
-            tail -n 25000 ${TEXT_SRC} > "${TEXT_DIR}/test.${LANG1}";
+            head -n 960000 ${TEXT_SRC} > "${TEXT_DIR}/train.${LANG1}";
+            tail -n 40000 ${TEXT_SRC_ORIG} | head -n 20000 > "${TEXT_DIR}/dev.${LANG1}";
+            tail -n 20000 ${TEXT_SRC_ORIG} > "${TEXT_DIR}/test.${LANG1}";
 
-            head -n 950000 ${TEXT_TGT} > "${TEXT_DIR}/train.${LANG2}";
-            tail -n 50000 ${TEXT_TGT} | head -n 25000 > "${TEXT_DIR}/dev.${LANG2}";
-            tail -n 25000 ${TEXT_TGT} > "${TEXT_DIR}/test.${LANG2}";
+            head -n 960000 ${TEXT_TGT} > "${TEXT_DIR}/train.${LANG2}";
+            tail -n 40000 ${TEXT_TGT_ORIG} | head -n 20000 > "${TEXT_DIR}/dev.${LANG2}";
+            tail -n 20000 ${TEXT_TGT_ORIG} > "${TEXT_DIR}/test.${LANG2}";
         done;
     done;
     done;
 done;
+done;
 
-for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
-    DATASET1=wmt19m;
+# for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
+for DATASET2 in "CCAligned"; do
+for DATASET1 in "CCAligned" "wmt19m"; do
     for PREFIX1 in "orig" "teacher"; do
     for PREFIX2 in "orig" "teacher"; do
         for LANGS in "en-de" "de-en"; do
@@ -43,16 +47,19 @@ for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
             echo "Preprocessing ${DATASET2} (BPE'd by ${DATASET1}) ${PREFIX1}-${PREFIX2} ${LANG1}-${LANG2}";
             TEXT_DIR="data_bin/${DATASET2}.de-en.bpe_${DATASET1}.${PREFIX1}-${PREFIX2}.${LANG1}-${LANG2}/";
 
-            fairseq-preprocess --source-lang $LANG1 --target-lang $LANG2 \
+            sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
+                --job-name="preprocess_${DATASET2}.de-en.bpe_${DATASET1}.${PREFIX1}-${PREFIX2}.${LANG1}-${LANG2}" \
+                --output="logs/preprocess_${DATASET2}.de-en.bpe_${DATASET1}.${PREFIX1}-${PREFIX2}.${LANG1}-${LANG2}" \
+                --wrap="fairseq-preprocess --source-lang $LANG1 --target-lang $LANG2 \
                 --trainpref $TEXT_DIR/train --validpref $TEXT_DIR/dev --testpref $TEXT_DIR/test  \
                 --destdir $TEXT_DIR \
                 --bpe fastbpe \
                 --joined-dictionary \
                 --tokenizer moses \
-                --workers 40;
+                --workers 40 \
+            "
         done;
     done;
-    done &
+    done;
 done;
-
-wait
+done;
