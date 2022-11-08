@@ -5,7 +5,7 @@ DATASET2="CCAligned";
 for DATASET1 in "CCAligned" "wmt19m"; do
 
 # for LANGS in "en-de" "de-en"; do
-for LANGS in "en-de"; do
+for LANGS in "de-en"; do
     IFS='-' read -r -a LANGS <<< "${LANGS}";
     LANG1="${LANGS[0]}"
     LANG2="${LANGS[1]}"

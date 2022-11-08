@@ -21,6 +21,7 @@ for DATASET1 in "CCAligned" "wmt19m"; do
             TEXT_SRC_ORIG="data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.${LANG1}";
             TEXT_TGT_ORIG="data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.${LANG2}";
 
+            # TODO: accidentially removed one zero
             head -n 960000 ${TEXT_SRC} > "${TEXT_DIR}/train.${LANG1}";
             tail -n 40000 ${TEXT_SRC_ORIG} | head -n 20000 > "${TEXT_DIR}/dev.${LANG1}";
             tail -n 20000 ${TEXT_SRC_ORIG} > "${TEXT_DIR}/test.${LANG1}";
