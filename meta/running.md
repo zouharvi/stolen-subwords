@@ -1,6 +1,7 @@
 |start date|status|nickname|comment|command|
 |-|-|-|-|-|
-|08-11-2022|running||train students (-wmt19m, -CCAligned)|`./src/patches/15-students_base.sh`|
+<!-- |09-11-2022|running||train students (-wmt19m, -CCAligned, -EuroPat), double|`./src/patches/15-students_base.sh`| -->
+|08-11-2022|running||train students (-wmt19m, -CCAligned, -EuroPat)|`./src/patches/15-students_base.sh`|
 |08-11-2022|ok||preprocessing data CCAligned-CCAligned|`./src/patches/14-preprocess_data.sh`|
 |07-11-2022|ok||preprocessing data|`sbatch --time=01-00 --ntasks=100 --mem-per-cpu=1GB --output="logs/preprocess_table_2" ./src/patches/14-preprocess_data.sh`|
 |07-11-2022|running||translate & encode vocab|`./src/patches/11-translate_encode_vocabs.sh`|

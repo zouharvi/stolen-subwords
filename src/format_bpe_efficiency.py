@@ -25,9 +25,9 @@ datasets = ["ParaCrawl", "EuroPat", "CCAligned"]
 PRETTY_NAME = {
     "wmt19m": "Victim",
     "All": "All",
-    "ParaCrawl": "ParaCrawl",
+    "ParaCrawl": "PCrawl",
     "EuroPat": "Patents",
-    "CCAligned": "CC",
+    "CCAligned": "CCrawl",
 }
 
 for bpe_dataset in bpe_datasets:

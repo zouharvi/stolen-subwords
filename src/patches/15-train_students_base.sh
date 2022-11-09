@@ -2,20 +2,22 @@
 
 DATASET2="CCAligned";
 
-for DATASET1 in "CCAligned" "wmt19m"; do
+# for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
+for DATASET1 in "EuroPat"; do
 
-# for LANGS in "en-de" "de-en"; do
-for LANGS in "de-en"; do
+for LANGS in "en-de" "de-en"; do
+# for LANGS in "de-en"; do
     IFS='-' read -r -a LANGS <<< "${LANGS}";
     LANG1="${LANGS[0]}"
     LANG2="${LANGS[1]}"
 
-    # for PREFIXES in "orig-orig" "orig-teacher"; do
-    for PREFIXES in "teacher-orig" "teacher-teacher"; do
+    for PREFIXES in "orig-orig" "orig-teacher"; do
+    # for PREFIXES in "teacher-orig" "teacher-teacher"; do
         IFS='-' read -r -a PREFIXES <<< "${PREFIXES}";
         PREFIX1="${PREFIXES[0]}"
         PREFIX2="${PREFIXES[1]}"
 
+        # TODO: training joiend
         SIGNATURE="${DATASET2}.de-en.bpe_${DATASET1}.${PREFIX1}-${PREFIX2}.${LANG1}-${LANG2}";
         echo "Submitting ${SIGNATURE}";
         TEXT_DIR="data_bin/${SIGNATURE}/";
@@ -34,6 +36,7 @@ for LANGS in "de-en"; do
                 --criterion label_smoothed_cross_entropy --label-smoothing 0.1 \
                 --max-tokens 4096 \
                 --eval-bleu \
+                --patience 10 \
                 --save-dir \"$TEXT_DIR/checkpoints\" \
                 --eval-bleu-args '{\"beam\": 5, \"max_len_a\": 1.2, \"max_len_b\": 10}' \
                 --eval-bleu-detok moses \

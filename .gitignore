@@ -6,6 +6,7 @@
 /data_backup
 /checkpoints
 /fastBPE
+/computed
 slurm*
 
 # Byte-compiled / optimized / DLL files
