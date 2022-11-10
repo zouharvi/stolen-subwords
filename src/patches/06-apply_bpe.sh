@@ -6,7 +6,7 @@ FASTBPE_BIN="fastBPE/fast"
 # WMT19_PATH="/home/vilda/.cache/torch/pytorch_fairseq/0695ef328ddefcb8cbcfabc3196182f59c0e41e0468b10cc0db2ae9c91881fcc.bb1be17de4233e13870bd7d6065bfdb03fca0a51dd0f5d0b7edf5c188eda71f1"
 # cp "${WMT19_PATH}/bpecodes" data_vocab/wmt19m.de-en.bpecodes
 
-# for DATASET1 in "EuroPat"; do
+# for DATASET1 in "All" "ParaCrawl"; do
 #     for DATASET2 in "CCAligned"; do
 for DATASET1 in "ParaCrawl" "EuroPat" "CCAligned"; do
     for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do

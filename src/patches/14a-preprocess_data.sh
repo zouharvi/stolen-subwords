@@ -5,7 +5,8 @@
 
 # for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
 for DATASET2 in "CCAligned"; do
-for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
+# for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
+for DATASET1 in "All" "ParaCrawl"; do
     for PREFIX1 in "orig" "teacher"; do
     for PREFIX2 in "orig" "teacher"; do
         for LANGS in "en-de" "de-en"; do
@@ -37,7 +38,8 @@ done;
 
 # for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
 for DATASET2 in "CCAligned"; do
-for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
+# for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
+for DATASET1 in "All" "ParaCrawl"; do
     for PREFIX1 in "orig" "teacher"; do
     for PREFIX2 in "orig" "teacher"; do
         for LANGS in "en-de" "de-en"; do

@@ -3,7 +3,7 @@
 DATASET2="CCAligned";
 
 # for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
-for DATASET1 in "EuroPat"; do
+for DATASET1 in "All" "ParaCrawl"; do
 
 for LANGS in "en-de" "de-en"; do
 # for LANGS in "de-en"; do
