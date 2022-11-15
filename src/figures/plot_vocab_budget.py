@@ -73,10 +73,17 @@ for s_i, suffix in enumerate(SUFFIXES):
     if len(data[suffix][:plateau_point + 1]) > len(xticks):
         xticks = [x["budget"] for x in data[suffix][:plateau_point + 1]]
 
+    # plot outside of the visible area
+    plt.plot(
+        [-10], [1], 
+        label=PRETTY_NAME[suffix],
+        color=fig_utils.COLORS[s_i],
+        marker=".",
+        markersize=15,
+    )
     plt.plot(
         xticks_local,
         [x["overlap"] for x in data[suffix][:plateau_point + 1]],
-        label=PRETTY_NAME[suffix],
         color=fig_utils.COLORS[s_i],
     )
     plt.plot(
@@ -130,6 +137,7 @@ plt.xticks(
         for i, x in enumerate(xticks) if (i + 1) % 2
     ],
 )
+plt.xlim(-2)
 plt.ylabel("Vocabulary overlap")
 plt.xlabel("Subword translation budget (millions, logscaled).")
 
