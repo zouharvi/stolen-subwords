@@ -3,7 +3,8 @@
 FASTBPE_BIN="fastBPE/fast"
 DATASET="All"
 
-for SUFFIX in "uniq_small_lower" "uniq_small" "uniq"; do
+# for SUFFIX in "uniq_small_lower" "uniq_small" "uniq" "small_sent"; do
+for SUFFIX in "small_sent"; do
     echo "Submitting translation of ${DATASET}_${SUFFIX}";
     
     # Into German
