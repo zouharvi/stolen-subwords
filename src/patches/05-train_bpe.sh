@@ -2,8 +2,10 @@
 
 FASTBPE_BIN="fastBPE/fast"
 
-for DATASET in "ParaCrawl" "EuroPat" "CCAligned" "All"; do
-    for PREFIX in "orig" "teacher"; do
+# for DATASET in "ParaCrawl" "EuroPat" "CCAligned" "All"; do
+for DATASET in "All"; do
+    for PREFIX in "teacher"; do
+    # for PREFIX in "orig" "teacher"; do
         # $FASTBPE_BIN getvocab data_vocab/${DATASET}.de-en.tok/en data_vocab/${DATASET}.de-en/tok.de > data_vocab/${DATASET}.dict
         echo "Submitting for $DATASET"
         sbatch --time=0-4 --ntasks=50 --mem-per-cpu=1G \

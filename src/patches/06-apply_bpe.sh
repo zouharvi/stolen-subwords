@@ -11,8 +11,16 @@ for DATASET1 in "All" "ParaCrawl" "EuroPat" "CCAligned"; do
         for LANG in "en" "de"; do
             echo "Submitting BPE trained on $DATASET1 (${LANG}) on data from $DATASET2:";
             sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
-                --output="logs/applybpe_${DATASET1}_${LANG}_${DATASET2}.log" \
-                --job-name="applybpe_${DATASET1}_${LANG}_${DATASET2}" \
+                --output="logs/applybpe_${DATASET1}_${LANG}_${DATASET2}_orig.log" \
+                --job-name="applybpe_${DATASET1}_${LANG}_${DATASET2}_orig" \
+                --wrap="$FASTBPE_BIN applybpe \
+                    data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.${LANG} \
+                    data_vocab/${DATASET2}.de-en/orig.tok.${LANG} \
+                    data_vocab/${DATASET1}.de-en/orig.bpecodes
+                ";
+            sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
+                --output="logs/applybpe_${DATASET1}_${LANG}_${DATASET2}_teacher.log" \
+                --job-name="applybpe_${DATASET1}_${LANG}_${DATASET2}_teacher" \
                 --wrap="$FASTBPE_BIN applybpe \
                     data_vocab/${DATASET2}.de-en/teacher.bpe.${DATASET1}.${LANG} \
                     data_vocab/${DATASET2}.de-en/teacher.tok.${LANG} \
@@ -22,22 +30,28 @@ for DATASET1 in "All" "ParaCrawl" "EuroPat" "CCAligned"; do
     done;
 done
 
-
-for DATASET1 in "All" "ParaCrawl" "EuroPat" "CCAligned"; do
-    for DATASET2 in "EuroPat"; do
-        for LANG in "en" "de"; do
-            echo "Submitting BPE trained on $DATASET1 (${LANG}) on data from $DATASET2:";
-            sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
-                --output="logs/applybpe_${DATASET1}_${LANG}_${DATASET2}.log" \
-                --job-name="applybpe_${DATASET1}_${LANG}_${DATASET2}" \
-                --wrap="$FASTBPE_BIN applybpe \
-                    data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.${LANG} \
-                    data_vocab/${DATASET2}.de-en/orig.tok.${LANG} \
-                    data_vocab/${DATASET1}.de-en/orig.bpecodes
-                ";
-        done;
+DATASET1="wmt19m"
+for DATASET2 in "EuroPat"; do
+    for LANG in "en" "de"; do
+        echo "Submitting BPE trained on $DATASET1 (${LANG}) on data from $DATASET2:";
+        sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
+            --output="logs/applybpe_${DATASET1}_${LANG}_${DATASET2}_orig.log" \
+            --job-name="applybpe_${DATASET1}_${LANG}_${DATASET2}_orig" \
+            --wrap="$FASTBPE_BIN applybpe \
+                data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.${LANG} \
+                data_vocab/${DATASET2}.de-en/orig.tok.${LANG} \
+                data_vocab/${DATASET1}.de-en.bpecodes
+            ";
+        sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
+            --output="logs/applybpe_${DATASET1}_${LANG}_${DATASET2}_teacher.log" \
+            --job-name="applybpe_${DATASET1}_${LANG}_${DATASET2}_teacher" \
+            --wrap="$FASTBPE_BIN applybpe \
+                data_vocab/${DATASET2}.de-en/teacher.bpe.${DATASET1}.${LANG} \
+                data_vocab/${DATASET2}.de-en/teacher.tok.${LANG} \
+                data_vocab/${DATASET1}.de-en.bpecodes
+            ";
     done;
-done
+done;
 
 
 DATASET2="All"

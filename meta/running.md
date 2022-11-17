@@ -1,6 +1,7 @@
 |start date|status|nickname|comment|command|
 |-|-|-|-|-|
-|17-11-2022|running||train students on EuroPat (orig-teacher -*, orig-orig -EuroPat)|`./src/patches/15-students_base.sh`|
+|17-11-2022|ok||preprocess EuroPat|`./src/patches/14a-preprocess_data.sh`|
+|17-11-2022|failed, running||train students on EuroPat (orig-teacher -*, orig-orig -EuroPat)|`./src/patches/15-students_base.sh`|
 |17-11-2022|running||train students on ParaCrawl (orig-teacher -*, orig-orig -ParaCrawl)|`./src/patches/15-students_base.sh`|
 |17-11-2022|ok||preprocess ParaCrawl & EuroPat|`./src/patches/14a-preprocess_data.sh`|
 |17-11-2022|ok||apply bpe (ParaCrawl EuroPat)|`./src/patches/06-apply_bpe.sh`|
