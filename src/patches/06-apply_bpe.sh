@@ -6,10 +6,8 @@ FASTBPE_BIN="fastBPE/fast"
 # WMT19_PATH="/home/vilda/.cache/torch/pytorch_fairseq/0695ef328ddefcb8cbcfabc3196182f59c0e41e0468b10cc0db2ae9c91881fcc.bb1be17de4233e13870bd7d6065bfdb03fca0a51dd0f5d0b7edf5c188eda71f1"
 # cp "${WMT19_PATH}/bpecodes" data_vocab/wmt19m.de-en.bpecodes
 
-# for DATASET1 in "All" "ParaCrawl"; do
-#     for DATASET2 in "CCAligned"; do
-for DATASET1 in "ParaCrawl" "EuroPat" "CCAligned"; do
-    for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
+for DATASET1 in "All" "ParaCrawl" "EuroPat" "CCAligned"; do
+    for DATASET2 in "EuroPat"; do
         for LANG in "en" "de"; do
             echo "Submitting BPE trained on $DATASET1 (${LANG}) on data from $DATASET2:";
             sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
@@ -25,8 +23,7 @@ for DATASET1 in "ParaCrawl" "EuroPat" "CCAligned"; do
 done
 
 
-for DATASET1 in "wmt19m"; do
-    # for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
+for DATASET1 in "All" "ParaCrawl" "EuroPat" "CCAligned"; do
     for DATASET2 in "EuroPat"; do
         for LANG in "en" "de"; do
             echo "Submitting BPE trained on $DATASET1 (${LANG}) on data from $DATASET2:";
@@ -36,7 +33,7 @@ for DATASET1 in "wmt19m"; do
                 --wrap="$FASTBPE_BIN applybpe \
                     data_vocab/${DATASET2}.de-en/orig.bpe.${DATASET1}.${LANG} \
                     data_vocab/${DATASET2}.de-en/orig.tok.${LANG} \
-                    data_vocab/${DATASET1}.de-en.bpecodes
+                    data_vocab/${DATASET1}.de-en/orig.bpecodes
                 ";
         done;
     done;

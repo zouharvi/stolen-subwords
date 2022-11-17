@@ -1,7 +1,11 @@
 |start date|status|nickname|comment|command|
 |-|-|-|-|-|
+|17-11-2022|running||train students on EuroPat (orig-teacher -*, orig-orig -EuroPat)|`./src/patches/15-students_base.sh`|
+|17-11-2022|running||train students on ParaCrawl (orig-teacher -*, orig-orig -ParaCrawl)|`./src/patches/15-students_base.sh`|
+|17-11-2022|ok||preprocess ParaCrawl & EuroPat|`./src/patches/14a-preprocess_data.sh`|
+|17-11-2022|ok||apply bpe (ParaCrawl EuroPat)|`./src/patches/06-apply_bpe.sh`|
 |16-11-2022|ok||precompute vocab budget|`./src/patches/17-submit_precompute_vocab_budget.sh`|
-|16-11-2022|running||translate & encode vocab (small_sent)|`./src/patches/11-translate_encode_vocabs.sh`|
+|16-11-2022|ok||translate & encode vocab (small_sent)|`./src/patches/11-translate_encode_vocabs.sh`|
 |16-11-2022|ok||apply bpe single|`./src/patches/06-apply_bpe.sh`|
 |14-11-2022|running||from single sentence (0..4)|`./src/patches/18-submit_from_single_sentence.sh`|
 |10-11-2022|ok||train students on CCAligned (-All, -ParaCrawl, -EuroPat)|`./src/patches/15-students_base.sh`|

@@ -1,17 +1,18 @@
 #!/usr/bin/bash
 
-DATASET2="CCAligned";
+DATASET2="EuroPat";
 
-# for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
-for DATASET1 in "All" "ParaCrawl"; do
-
+# for DATASET1 in "EuroPat"; do
+for DATASET1 in "All" "wmt19m" "CCAligned" "ParaCrawl" "EuroPat"; do
 for LANGS in "en-de" "de-en"; do
 # for LANGS in "de-en"; do
     IFS='-' read -r -a LANGS <<< "${LANGS}";
     LANG1="${LANGS[0]}"
     LANG2="${LANGS[1]}"
 
-    for PREFIXES in "orig-orig" "orig-teacher"; do
+    # for PREFIXES in "orig-orig"; do
+    for PREFIXES in "orig-teacher"; do
+    # for PREFIXES in "orig-orig" "orig-teacher"; do
     # for PREFIXES in "teacher-orig" "teacher-teacher"; do
         IFS='-' read -r -a PREFIXES <<< "${PREFIXES}";
         PREFIX1="${PREFIXES[0]}"
@@ -27,6 +28,7 @@ for LANGS in "en-de" "de-en"; do
             --output="logs/train_student_${SIGNATURE}.log" \
             --wrap="CUDA_VISIBLE_DEVICES=0 fairseq-train \
                 $TEXT_DIR \
+                --source-lang $LANG1 --target-lang $LANG2 \
                 --no-progress-bar \
                 --log-interval 2000 \
                 --arch transformer_iwslt_de_en --share-decoder-input-output-embed \
@@ -47,6 +49,5 @@ for LANGS in "en-de" "de-en"; do
                 --fp16 \
             "
     done;
-    # done;
 done;
 done;

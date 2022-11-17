@@ -3,12 +3,13 @@
 
 # scp euler:/cluster/work/sachan/vilem/vocab-stealing/data_vocab/CCAligned.de-en/{teacher,orig}.bpe.wmt19m.{en,de} data_vocab/CCAligned.de-en/
 
-# for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
-for DATASET2 in "CCAligned"; do
-# for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
-for DATASET1 in "All" "ParaCrawl"; do
-    for PREFIX1 in "orig" "teacher"; do
-    for PREFIX2 in "orig" "teacher"; do
+for DATASET2 in "EuroPat"; do
+for DATASET1 in "All" "wmt19m" "CCAligned" "ParaCrawl" "EuroPat"; do
+    for PREFIXES in "orig-teacher" "orig-orig"; do
+        IFS='-' read -r -a PREFIXES <<< "${PREFIXES}";
+        PREFIX1="${PREFIXES[0]}"
+        PREFIX2="${PREFIXES[1]}"
+
         for LANGS in "en-de" "de-en"; do
             IFS='-' read -r -a LANGS <<< "${LANGS}";
             LANG1="${LANGS[0]}"
@@ -32,16 +33,16 @@ for DATASET1 in "All" "ParaCrawl"; do
             tail -n 20000 ${TEXT_TGT_ORIG} > "${TEXT_DIR}/test.${LANG2}";
         done;
     done;
-    done;
 done;
 done;
 
-# for DATASET2 in "ParaCrawl" "EuroPat" "CCAligned"; do
-for DATASET2 in "CCAligned"; do
-# for DATASET1 in "CCAligned" "wmt19m" "EuroPat"; do
-for DATASET1 in "All" "ParaCrawl"; do
-    for PREFIX1 in "orig" "teacher"; do
-    for PREFIX2 in "orig" "teacher"; do
+for DATASET2 in "EuroPat"; do
+for DATASET1 in "All" "wmt19m" "CCAligned" "ParaCrawl" "EuroPat"; do
+    for PREFIXES in "orig-teacher" "orig-orig"; do
+        IFS='-' read -r -a PREFIXES <<< "${PREFIXES}";
+        PREFIX1="${PREFIXES[0]}"
+        PREFIX2="${PREFIXES[1]}"
+
         for LANGS in "en-de" "de-en"; do
             IFS='-' read -r -a LANGS <<< "${LANGS}";
             LANG1="${LANGS[0]}"
@@ -50,7 +51,7 @@ for DATASET1 in "All" "ParaCrawl"; do
             echo "Preprocessing ${DATASET2} (BPE'd by ${DATASET1}) ${PREFIX1}-${PREFIX2} ${LANG1}-${LANG2}";
             TEXT_DIR="data_bin/${DATASET2}.de-en.bpe_${DATASET1}.${PREFIX1}-${PREFIX2}.${LANG1}-${LANG2}/";
 
-            sbatch --time=0-4 --ntasks=40 --mem-per-cpu=1G \
+            sbatch --time=0-1 --ntasks=40 --mem-per-cpu=1G \
                 --job-name="preprocess_${DATASET2}.de-en.bpe_${DATASET1}.${PREFIX1}-${PREFIX2}.${LANG1}-${LANG2}" \
                 --output="logs/preprocess_${DATASET2}.de-en.bpe_${DATASET1}.${PREFIX1}-${PREFIX2}.${LANG1}-${LANG2}" \
                 --wrap="fairseq-preprocess --source-lang $LANG1 --target-lang $LANG2 \
@@ -62,7 +63,6 @@ for DATASET1 in "All" "ParaCrawl"; do
                 --workers 40 \
             "
         done;
-    done;
     done;
 done;
 done;
