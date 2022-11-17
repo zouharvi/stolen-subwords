@@ -19,8 +19,8 @@ for line in data:
     ] = line["subword_count"]
 
 # datasets = list(data_new["wmt19"].keys())
-bpe_datasets = ["wmt19m", "All", "ParaCrawl", "EuroPat", "CCAligned"]
-datasets = ["ParaCrawl", "EuroPat", "CCAligned"]
+bpe_datasets = ["wmt19m", "All", "ParaCrawl", "CCAligned", "EuroPat"]
+datasets = ["ParaCrawl", "CCAligned", "EuroPat"]
 
 PRETTY_NAME = {
     "wmt19m": "Victim",

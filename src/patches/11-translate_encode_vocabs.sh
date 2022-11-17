@@ -22,18 +22,16 @@ for SUFFIX in "small_sent"; do
                 data_vocab/wmt19m.de-en.bpecodes;
             ";
 
-    # Into English
-    sbatch --time=1-00 --ntasks=8 --mem-per-cpu=3G --gpus=1 \
-        --job-name="translate_teacher_${SUFFIX}.en" \
-        --output="logs/translate_teacher_${SUFFIX}.en.log" \
-        --wrap="\
             python3 src/teacher_translate.py \
                 --model transformer.wmt19.en-de \
                 -i data_vocab/${DATASET}.de-en/orig.tok.de.${SUFFIX} \
                 -o data_vocab/${DATASET}.de-en/orig.tok.de.${SUFFIX}.teacher;\
+    # Into English
+    sbatch --time=1-00 --ntasks=8 --mem-per-cpu=3G \
+        --wrap="\
             $FASTBPE_BIN applybpe \
                 data_vocab/${DATASET}.de-en/orig.tok.de.${SUFFIX}.teacher.bpe \
-                data_vocab/${DATASET}.de-en/orig.tok.de.${SUFFIX}.teacher \
+                data_vocab/${DATASET}.de-en/orig.tok.de.${SUFFIX}.teacher.tmp \
                 data_vocab/wmt19m.de-en.bpecodes;
             ";
 done;

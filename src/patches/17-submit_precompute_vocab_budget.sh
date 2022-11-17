@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-for SUFFIX in "uniq_small_lower" "uniq_small" "uniq"; do
+# for SUFFIX in "uniq_small_lower" "uniq_small" "uniq" "small_sent"; do
+for SUFFIX in "small_sent"; do
     echo "Submitting ${SUFFIX}";
     sbatch --time=0-4 --ntasks=40 --mem-per-cpu=2G \
         --output="logs/precompute_vocab_budget_${SUFFIX}.log" \

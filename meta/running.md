@@ -1,6 +1,7 @@
 |start date|status|nickname|comment|command|
 |-|-|-|-|-|
-|16-11-2022|ok||translate & encode vocab (small_sent)|`./src/patches/11-translate_encode_vocabs.sh`|
+|16-11-2022|ok||precompute vocab budget|`./src/patches/17-submit_precompute_vocab_budget.sh`|
+|16-11-2022|running||translate & encode vocab (small_sent)|`./src/patches/11-translate_encode_vocabs.sh`|
 |16-11-2022|ok||apply bpe single|`./src/patches/06-apply_bpe.sh`|
 |14-11-2022|running||from single sentence (0..4)|`./src/patches/18-submit_from_single_sentence.sh`|
 |10-11-2022|ok||train students on CCAligned (-All, -ParaCrawl, -EuroPat)|`./src/patches/15-students_base.sh`|

@@ -5,7 +5,7 @@ import fig_utils
 import argparse
 import json
 
-# scp euler:/cluster/work/sachan/vilem/vocab-stealing/computed/overlap/*all*.jsonl computed/overlap/
+# scp euler:/cluster/work/sachan/vilem/vocab-stealing/computed/overlap/*.jsonl computed/overlap/
 
 args = argparse.ArgumentParser()
 args.add_argument(
@@ -19,18 +19,40 @@ args.add_argument(
 )
 args = args.parse_args()
 
-SUFFIXES = ["uniq_small_lower", "uniq_small", "uniq", "all"]
+# "uniq_small_lower" "uniq_small"
+SUFFIXES = ["uniq", "all", "small_sent", "from_single",]
 PRETTY_NAME = {
     "all": "Graybox all",
-    "uniq": "Graybox unique",
+    "uniq": "Graybox uniq. words",
     "uniq_small": "Graybox unique minimized",
-    "uniq_small_lower": "Graybox unique mini. lower.",
+    # "uniq_small_lower": "Graybox uniq. mini. lower.",
+    "small_sent": "Graybox sent. mini.",
+    "from_single": "From single sent.",
 }
 SUFFIXES_TEXT_OFFSET = {
-    "all": (-1.2, -0.03),
-    "uniq": (0.98, 0),
+    "all": (-1.2, -0.04),
+    "uniq": (1, -0.04),
     "uniq_small": (1.8, -0.02),
-    "uniq_small_lower": (-0.4, -0.04),
+    "uniq_small_lower": (1.8, -0.02),
+    "from_single": (1.8, -0.01),
+    "small_sent": (1, -0.025),
+}
+
+MARKERS = {
+    "all": ".",
+    "uniq": ".",
+    "uniq_small": ".",
+    "uniq_small_lower": ".",
+    "from_single": "^",
+    "small_sent": ".",
+}
+MARKERS_SIZE_OFFSET = {
+    "all": 0,
+    "uniq": 0,
+    "uniq_small": 0,
+    "uniq_small_lower": 0,
+    "from_single": -5,
+    "small_sent": 0,
 }
 SUFFIXES_TEXT_EXTRA = {
     "uniq_small": " (mini.)"
@@ -44,7 +66,7 @@ for suffix in SUFFIXES:
 
 
 # plot
-plt.figure(figsize=(4.8, 4))
+plt.figure(figsize=(4.8, 3.5))
 xticks = []
 
 for s_i, suffix in enumerate(SUFFIXES):
@@ -78,8 +100,8 @@ for s_i, suffix in enumerate(SUFFIXES):
         [-10], [1], 
         label=PRETTY_NAME[suffix],
         color=fig_utils.COLORS[s_i],
-        marker=".",
-        markersize=15,
+        marker=MARKERS[suffix],
+        markersize=15+MARKERS_SIZE_OFFSET[suffix],
     )
     plt.plot(
         xticks_local,
@@ -89,16 +111,16 @@ for s_i, suffix in enumerate(SUFFIXES):
     plt.plot(
         xticks_local,
         [x["overlap"] for x in data[suffix][:plateau_point + 1]],
-        marker=".",
-        markersize=12,
+        marker=MARKERS[suffix],
+        markersize=12+MARKERS_SIZE_OFFSET[suffix],
         alpha=0.5,
         color=fig_utils.COLORS[s_i],
     )
     plt.plot(
         [xticks_local[-1]],
         [data[suffix][plateau_point]["overlap"]],
-        marker=".",
-        markersize=15,
+        marker=MARKERS[suffix],
+        markersize=15+MARKERS_SIZE_OFFSET[suffix],
         alpha=1,
     )
     text_offset = SUFFIXES_TEXT_OFFSET[suffix]
@@ -117,7 +139,7 @@ plt.scatter(
     color=fig_utils.COLORS[6], marker="s"
 )
 plt.text(
-    -0.9, args.orig_overlap + 0.01,
+    -0.9, args.orig_overlap + 0.015,
     f"{args.orig_overlap:.1%}", ha="center"
 )
 plt.scatter(
@@ -126,16 +148,20 @@ plt.scatter(
     color=fig_utils.COLORS[5], marker="s"
 )
 plt.text(
-    len(xticks) - 1.04, args.teacher_overlap + 0.01,
+    len(xticks) - 1.04, args.teacher_overlap + 0.015,
     f"{args.teacher_overlap:.1%}", ha="center"
 )
 
 plt.xticks(
     [-1] + [i for i in range(len(xticks)) if (i + 1) % 2],
-    ["0M"] + [
+    ["0"] + [
         f"{x/1000000:}".replace(".0", "") + "M"
         for i, x in enumerate(xticks) if (i + 1) % 2
     ],
+)
+plt.yticks(
+    [0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+    [f"{x:.0%}" for x in [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]],
 )
 plt.xlim(-2)
 plt.ylabel("Vocabulary overlap")
