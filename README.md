@@ -1,6 +1,6 @@
 # Machine Translation Vocabulary Stealing
 
-Code accompanying the report [Stolen Subwords: Importance of Vocabularies for Machine Translation Model Stealing](https://github.com/zouharvi/vocab-stealing/raw/main/meta/stolen_subwords.pdf).
+Code accompanying the report [Stolen Subwords: Importance of Vocabularies for Machine Translation Model Stealing](https://github.com/zouharvi/stolen-subwords/raw/main/meta/stolen_subwords.pdf).
 
 Abstract:
 
