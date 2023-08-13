@@ -10,3 +10,5 @@ Abstract:
 > We find that the vocabulary itself does not have a large effect on the local model's performance.
 > Given gray-box model access, it is possible to collect the victim's vocabulary by collecting the outputs (detokenized subwords on the output).
 > The results of the minimum effect of vocabulary choice are important more broadly for black-box knowledge distillation.
+
+<img width="500em" src="https://github.com/zouharvi/stolen-subwords/assets/7661193/ae84d0a5-8a1b-442d-9b3e-688fd8b61c54">
