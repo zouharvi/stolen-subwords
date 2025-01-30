@@ -1,6 +1,8 @@
 # Machine Translation Vocabulary Stealing
 
-Code accompanying the report [Stolen Subwords: Importance of Vocabularies for Machine Translation Model Stealing]([https://vilda.net/papers/stolen_subwords.pdf](https://arxiv.org/abs/2401.16055)).
+[![Paper](https://img.shields.io/badge/📜%20paper-481.svg)](https://arxiv.org/abs/2401.16055)
+
+Code accompanying the report [Stolen Subwords: Importance of Vocabularies for Machine Translation Model Stealing](https://arxiv.org/abs/2401.16055).
 
 > **Abstract**: In learning-based functionality stealing, the attacker is trying to build a local model based on the victim's outputs.
 > The attacker has to make choices regarding the local model's architecture, optimization method and, specifically for NLP models, subword vocabulary, such as BPE.
